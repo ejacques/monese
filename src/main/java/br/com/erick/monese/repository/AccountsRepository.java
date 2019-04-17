@@ -40,8 +40,4 @@ public class AccountsRepository {
         }
     }
 
-    @Transactional
-    public void insert(AccountEntity entity) {
-        entityManager.merge(entity);
-    }
 }

@@ -1,7 +1,6 @@
 package br.com.erick.monese.controller;
 
 
-import br.com.erick.monese.controller.dto.DepositRequestDTO;
 import br.com.erick.monese.controller.dto.TransferRequestDTO;
 import br.com.erick.monese.exceptions.BusinessException;
 import br.com.erick.monese.service.TransferService;
@@ -30,8 +29,4 @@ public class OperationController {
         }
     }
 
-    @Post("/deposit")
-    public HttpResponse<Void> deposit(@Body @Valid DepositRequestDTO payload) {
-        throw new UnsupportedOperationException();
-    }
 }

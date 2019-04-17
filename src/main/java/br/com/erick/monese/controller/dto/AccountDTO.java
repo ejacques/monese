@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@JsonIgnoreProperties
 public class AccountDTO {
 
     private String number;
@@ -56,5 +55,14 @@ public class AccountDTO {
     @Override
     public int hashCode() {
         return Objects.hash(number, owner, balance);
+    }
+
+    @Override
+    public String toString() {
+        return "AccountDTO{" +
+                "number='" + number + '\'' +
+                ", owner=" + owner +
+                ", balance=" + balance +
+                '}';
     }
 }

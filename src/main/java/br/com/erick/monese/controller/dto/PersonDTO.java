@@ -5,6 +5,10 @@ public class PersonDTO {
     private String suid;
     private String name;
 
+    public PersonDTO() {
+
+    }
+
     public PersonDTO(String suid, String name) {
         this.suid = suid;
         this.name = name;

@@ -1,8 +1,7 @@
 package br.com.erick.monese.controller.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Objects;
 
-@JsonIgnoreProperties
 public class TransferDTO extends OperationDTO {
 
     private static final String TYPE = "TRANSFER";
@@ -28,6 +27,21 @@ public class TransferDTO extends OperationDTO {
 
     public void setDestination(AccountDTO destination) {
         this.destination = destination;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TransferDTO that = (TransferDTO) o;
+        return Objects.equals(source, that.source) &&
+                Objects.equals(destination, that.destination);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(source, destination);
     }
 
 }

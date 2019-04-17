@@ -13,7 +13,7 @@ public class TransferBuilder {
     private final String TRANSACTION_ID = "7ce7c73d-52b7-47c0-a5cd-c5cd84196e40";
     public static final String SOURCE_ACCOUNT_NUMBER = "1968974456";
     public static final String DESTINATION_ACCOUNT_NUMBER = "2654987415";
-    private final BigDecimal AMOUNT = BigDecimal.valueOf(50);
+    private final BigDecimal AMOUNT = BigDecimal.valueOf(500);
 
     private String sourceAccountNumber;
     private String destinationAccountNumber;

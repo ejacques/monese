@@ -10,6 +10,7 @@ import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.annotation.MicronautTest;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,24 +24,33 @@ import static br.com.erick.monese.mock.TransferBuilder.SOURCE_ACCOUNT_NUMBER;
 public class IntegrationRestTest {
 
     private EmbeddedServer embeddedServer;
-    private OperationClient operationClient;
+    private OperationClient client;
 
     @Before
     public void setup() {
         this.embeddedServer = ApplicationContext.run(EmbeddedServer.class);
-        this.operationClient = embeddedServer.getApplicationContext().getBean(OperationClient.class);
+        this.client = embeddedServer.getApplicationContext().getBean(OperationClient.class);
     }
 
     @Test
     public void testTransferOk() {
         //Given
         TransferRequestDTO request = mockRequest();
+        AccountDTO sourceAccountBefore = client.getAccount(SOURCE_ACCOUNT_NUMBER).body();
+        AccountDTO destinationAccountBefore = client.getAccount(DESTINATION_ACCOUNT_NUMBER).body();
 
         //When
-        HttpResponse<TransferDTO> httpResponse = operationClient.transfer(request);
+        HttpResponse<TransferDTO> httpResponse = client.transfer(request);
+
+        AccountDTO sourceAccountAfter = client.getAccount(SOURCE_ACCOUNT_NUMBER).body();
+        AccountDTO destinationAccountAfter = client.getAccount(DESTINATION_ACCOUNT_NUMBER).body();
 
         //Then
         Assert.assertEquals(HttpStatus.OK, httpResponse.getStatus());
+        Assert.assertEquals(request.getAmount().add(destinationAccountBefore.getBalance()),
+                destinationAccountAfter.getBalance());
+        Assert.assertEquals(request.getAmount().negate().add(sourceAccountBefore.getBalance()),
+                sourceAccountAfter.getBalance());
     }
 
     @Test
@@ -50,7 +60,7 @@ public class IntegrationRestTest {
 
         //When
         try {
-            operationClient.transfer(request);
+            client.transfer(request);
         } catch (HttpClientResponseException e) {
             //Then
             Assert.assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, e.getStatus());
@@ -66,7 +76,7 @@ public class IntegrationRestTest {
 
         //When
         try {
-            operationClient.transfer(request);
+            client.transfer(request);
         } catch (HttpClientResponseException e) {
             //Then
             Assert.assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
@@ -97,4 +107,8 @@ public class IntegrationRestTest {
         return dto;
     }
 
+    @After
+    public void cleanup() {
+        embeddedServer.stop();
+    }
 }
