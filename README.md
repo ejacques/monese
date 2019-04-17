@@ -33,6 +33,11 @@ GET > /accounts/{accountNumber}
 Retrieve all informations from one account, filtering by account number.
 
 ```
+GET > /accounts/{accountNumber}/operations/
+```
+Retrieve all transfers to/from one account, filtering by account number.
+
+```
 POST > /operations/transfer
 ```
 Make the transfer between accounts.
@@ -53,4 +58,4 @@ Body:
 - Add transaction id in the header of the transactions for a better troubleshooting
 - Validate transaction using destination's suid and name
 - Use a temporary structure to improve balance calculation (such as a database view, recording the balance of the account at the end of previous month)
-- Test the other APIs that weren't part of the scope
+- Improve the test builders to check more scenarios. 

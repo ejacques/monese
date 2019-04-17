@@ -1,6 +1,6 @@
 package br.com.erick.monese.controller;
 
-import br.com.erick.monese.OperationClient;
+import br.com.erick.monese.AppClient;
 import br.com.erick.monese.controller.dto.AccountDTO;
 import br.com.erick.monese.controller.dto.TransferDTO;
 import br.com.erick.monese.controller.dto.TransferRequestDTO;
@@ -24,12 +24,12 @@ import static br.com.erick.monese.mock.TransferBuilder.SOURCE_ACCOUNT_NUMBER;
 public class IntegrationRestTest {
 
     private EmbeddedServer embeddedServer;
-    private OperationClient client;
+    private AppClient client;
 
     @Before
     public void setup() {
         this.embeddedServer = ApplicationContext.run(EmbeddedServer.class);
-        this.client = embeddedServer.getApplicationContext().getBean(OperationClient.class);
+        this.client = embeddedServer.getApplicationContext().getBean(AppClient.class);
     }
 
     @Test

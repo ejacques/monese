@@ -11,7 +11,7 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.client.annotation.Client;
 
 @Client("/")
-public interface OperationClient {
+public interface AppClient {
 
     @Post("operations/transfer")
     HttpResponse<TransferDTO> transfer(@Body TransferRequestDTO payload);

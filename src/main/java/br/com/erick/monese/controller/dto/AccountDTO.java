@@ -1,7 +1,5 @@
 package br.com.erick.monese.controller.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.math.BigDecimal;
 import java.util.Objects;
 
