@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: br.com.erick.monese
+---
+testFramework: junit
+sourceLanguage: java
